@@ -16,27 +16,33 @@
         return color;
       }
 
-    function createGrid(size) {
-      container.innerHTML = '';
-      container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-      container.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+  function createGrid(size) {
+  container.innerHTML = '';
+  container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+  container.style.gridTemplateRows = `repeat(${size}, 1fr)`;
 
-      for (let i = 0; i < size * size; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.addEventListener('mouseenter', () => {
+  for (let i = 0; i < size * size; i++) {
+    const cell = document.createElement('div');
+    cell.classList.add('cell');
+
+    const paintCell = (e) => {
+      e.preventDefault(); 
       if (isRandomColor) {
-        cell.classList.remove('color'); 
-        cell.style.backgroundColor = getRandomColor(); 
+        cell.classList.remove('color');
+        cell.style.backgroundColor = getRandomColor();
       } else {
-        cell.style.backgroundColor = ''; 
-        cell.classList.add('color'); 
-  }
-});
-
-        container.appendChild(cell);
+        cell.style.backgroundColor = '';
+        cell.classList.add('color');
       }
-    }
+    };
+
+    cell.addEventListener('mouseenter', paintCell);
+    cell.addEventListener('touchstart', paintCell);
+    cell.addEventListener('touchmove', paintCell);
+
+    container.appendChild(cell);
+  }
+}
 
   
     
